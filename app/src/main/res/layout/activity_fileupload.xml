@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:srcCompat="@mipmap/ic_launcher"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/ivFace" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="UploadFile"
+        android:layout_below="@+id/ivFace"
+        android:layout_centerHorizontal="true"
+        />
+
+    <Button
+        android:text="选择检测照片"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_sel_pic_to_det"
+        android:layout_below="@+id/button1"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:text="开始检测"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_face_det"
+        android:layout_below="@+id/button_sel_pic_to_det"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
