@@ -23,7 +23,7 @@ public class UploadApi {
     public static void uploadImg(Context context, Bitmap bitmap, String filename,Response.Listener<String> listener, Response.ErrorListener errorListener){
         List<FormImage> imageList = new ArrayList<FormImage>() ;
         imageList.add(new FormImage(bitmap,filename)) ;
-        Request request = new PostUploadRequest(Constant.UploadHost,imageList,listener,errorListener) ;
+        Request request = new PostUploadRequest(Constant.ComputeSimUrl,imageList,listener,errorListener) ;
         Volley.newRequestQueue(context).add(request) ;
     }
 }

@@ -1,11 +1,16 @@
 package com.example.administrator.myapplication.fileupload;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by Administrator on 2016/8/15.
@@ -18,6 +23,8 @@ public class Base64Helper {
      * @return
      */
     public static String bitmapToBase64(Bitmap bitmap) {
+
+
 
         String result = null;
         ByteArrayOutputStream baos = null;
@@ -45,6 +52,28 @@ public class Base64Helper {
             }
         }
         return result;
+    }
+    /**
+     * imageUri转为base64
+     * @return
+     */
+    public static String bitmapToBase64(Context context,Uri imageUri) {
+        /*try {
+            return  bitmapToBase64(MediaStore.Images.Media.getBitmap(context.getContentResolver(), imageUri));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+        InputStream inputStream= null;
+        try {
+            inputStream = context.getContentResolver().openInputStream(imageUri);
+            return  Base64.encodeToString(IoUtil.getBytes(inputStream), Base64.DEFAULT);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }catch (IOException e1){
+            e1.printStackTrace();
+        }
+        return  null;
+
     }
 
     /**
