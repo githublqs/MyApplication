@@ -311,8 +311,8 @@ public class FileUploadActivity extends ActionBarActivity {
 		//mHandlerThread.start();
 
 
-		Looper looper = mHandlerThread.getLooper();
-		threadHandler = new Handler(looper){
+		//Looper looper = mHandlerThread.getLooper();
+		threadHandler = new Handler(/*looper*/){
 			@Override
 			public void handleMessage(Message msg) {
 				super.handleMessage(msg);

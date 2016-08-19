@@ -4,8 +4,26 @@
     android:layout_height="match_parent">
 
 
-    <ListView
+    <!--<ListView
         android:id="@+id/listview_uploadface"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" />-->
+    <com.example.administrator.myapplication.pullableview.PullToRefreshLayout
+        android:id="@+id/refresh_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <include layout="@layout/refresh_head" />
+
+        <com.example.administrator.myapplication.pullableview.PullableListView
+            android:id="@+id/listview_uploadface"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:divider="@color/gray"
+            android:dividerHeight="1dp" />
+
+        <include layout="@layout/load_more" />
+
+    </com.example.administrator.myapplication.pullableview.PullToRefreshLayout>
 </LinearLayout>

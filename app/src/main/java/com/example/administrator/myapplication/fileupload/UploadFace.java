@@ -8,15 +8,26 @@ public class UploadFace {
     private String thumbnailImgFileName;
     private String imgFileiName;
     private  String date;
+    private long id;
 
     public UploadFace() {
     }
 
-    public UploadFace(String thumbnailImgFileName, String imgFileiName, String date) {
-
+    public UploadFace(String thumbnailImgFileName, String imgFileiName, String date,int id) {
         this.thumbnailImgFileName = thumbnailImgFileName;
         this.imgFileiName = imgFileiName;
         this.date = date;
+        this.id=id;
+    }
+    public UploadFace(String thumbnailImgFileName, String imgFileiName) {
+        this(thumbnailImgFileName,imgFileiName,null,0);
+    }
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getThumbnailImgFileName() {
@@ -26,6 +37,8 @@ public class UploadFace {
     public void setThumbnailImgFileName(String thumbnailImgFileName) {
         this.thumbnailImgFileName = thumbnailImgFileName;
     }
+
+
 
     public String getImgFileiName() {
         return imgFileiName;

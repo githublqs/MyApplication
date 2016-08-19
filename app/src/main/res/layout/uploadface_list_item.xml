@@ -10,16 +10,8 @@
         android:layout_marginRight="8dp"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:background="@mipmap/ic_launcher" />
-  <!--  <TextView
-        android:id="@+id/movie_name"
-        android:layout_toRightOf="@+id/movie_image"
-        android:layout_alignTop="@+id/movie_image"
-        android:layout_marginTop="1dp"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:src="@mipmap/ic_launcher" />
+
     <TextView
         android:id="@+id/movie_rating"
         android:textColor="#f243"
