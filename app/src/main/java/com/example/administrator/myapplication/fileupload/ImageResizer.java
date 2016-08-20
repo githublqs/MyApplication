@@ -9,11 +9,14 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.os.ParcelFileDescriptor;
+import android.support.annotation.Nullable;
 
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by Administrator on 2016/8/17.
@@ -111,7 +114,9 @@ public class ImageResizer {
         try {
             fileInputStream = new FileInputStream(path);
             FileDescriptor fileDescriptor = fileInputStream.getFD();
-            return  decodeSampledBitmapFromFileDescriptor(fileDescriptor,reqWidth,reqHeight);
+            Bitmap bitmap=decodeSampledBitmapFromFileDescriptor(fileDescriptor,reqWidth,reqHeight);
+            fileInputStream.close();
+            return bitmap;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }catch (IOException e1) {
@@ -120,15 +125,18 @@ public class ImageResizer {
         return null;
 
     }
-    public static  Bitmap decodeSampledBitmapFromImageFileUri(Context context, Uri imageFileUri, int reqWidth, int reqHeight) {
+    @Nullable
+    private static  Bitmap decodeSampledBitmapFromImageFileUri(Context context, Uri imageFileUri, int reqWidth, int reqHeight) {
         try {
-            return  decodeSampledBitmapFromFileDescriptor(context.getContentResolver().openFileDescriptor(imageFileUri,"r").getFileDescriptor(),reqWidth,reqHeight);
+            ParcelFileDescriptor pfd =context.getContentResolver().openFileDescriptor(imageFileUri,"r");
+            FileDescriptor fd=pfd.getFileDescriptor();
+            return  decodeSampledBitmapFromFileDescriptor(fd,reqWidth,reqHeight);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         return  null;
     }
-    public static Bitmap decodeSampledBitmapFromFileDescriptor(FileDescriptor fd, int reqWidth, int reqHeight) {
+    private static Bitmap decodeSampledBitmapFromFileDescriptor(FileDescriptor fd, int reqWidth, int reqHeight) {
 
         /*FileInputStream fileInputStream = (FileInputStream)snapShot.getInputStream(DISK_CACHE_INDEX);
         FileDescriptor fileDescriptor = fileInputStream.getFD();*/
@@ -144,6 +152,10 @@ public class ImageResizer {
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeFileDescriptor(fd, null, options);
     }
+
+
+
+
     public static int calculateInSampleSize(BitmapFactory.Options options,
                                      int reqWidth, int reqHeight) {
         if (reqWidth == 0 || reqHeight == 0) {
@@ -171,8 +183,25 @@ public class ImageResizer {
         //Log.d(TAG, "sampleSize:" + inSampleSize);
         return inSampleSize;
     }
+    //通过url返回bitmap
+    public static Bitmap decodeUriAsBitmap(Context context,Uri uri){
 
+        Bitmap bitmap = null;
 
+        try {
+            bitmap = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(uri));
+
+        } catch (FileNotFoundException e) {
+
+            e.printStackTrace();
+
+            return null;
+
+        }
+
+        return bitmap;
+
+    }
 
 
 }

@@ -17,4 +17,7 @@ public class Constant {
     public static final  int SocketPort=9991;
     public static final int PageSize=10;
 
+    public static final int SELECT_PICTURE=0;
+    public static final int SELECT_CAMER=1;
+
 }
