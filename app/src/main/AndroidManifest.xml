@@ -35,7 +35,10 @@
             android:theme="@style/AppTheme.NoActionBar"
             >
 
+
         </activity>
+        <activity android:name=".fileupload.LoginActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".fileupload.RegisterActivity" android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>
 

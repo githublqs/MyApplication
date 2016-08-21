@@ -19,5 +19,7 @@ public class Constant {
 
     public static final int SELECT_PICTURE=0;
     public static final int SELECT_CAMER=1;
+    public static final int SELECT_Crop=2;
 
+    public static String localCookie;
 }

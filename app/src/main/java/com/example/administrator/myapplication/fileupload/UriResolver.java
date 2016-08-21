@@ -230,19 +230,19 @@ public class UriResolver {
     }
     //从相册截小图
     public static Intent getSmallScaledImageFrompPotoAlbum(){
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
 
         intent.setType("image/*");
 
-        intent.putExtra("crop", "true");
+        intent.putExtra("crop", "true"); // 开启剪切
 
-        intent.putExtra("aspectX", 2);
+        intent.putExtra("aspectX", 1); // 剪切的宽高比为1：2
 
-        intent.putExtra("aspectY", 1);
+        intent.putExtra("aspectY", 2);
 
-        intent.putExtra("outputX", 200);
+        intent.putExtra("outputX", 100);
 
-        intent.putExtra("outputY", 100);
+        intent.putExtra("outputY", 200);
 
         intent.putExtra("scale", true);
 
@@ -257,7 +257,7 @@ public class UriResolver {
 
 
     //截图，在 onActivityResult中拿到返回的数据（Uri），并将Uri传递给截图的程序，如拍照后
-    public  static Intent getCropImageUri(Uri uri, int outputX, int outputY, int requestCode){
+    public  static Intent getCropImageUri(Uri uri, int outputX, int outputY){
         // cropImageUri(imageUri, 800, 400, CROP_BIG_PICTURE); 大
         //cropImageUri(imageUri, 300, 150, CROP_SMALL_PICTURE);小
             Intent intent = new Intent("com.android.camera.action.CROP");

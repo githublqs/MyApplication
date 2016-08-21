@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -456,6 +458,9 @@ public class FileUploadActivity extends ActionBarActivity {
         }
         if (imgFileUri1 == null) {
             showSnackbar("请选择图片2", view);
+
+
+
             return;
         }
 
