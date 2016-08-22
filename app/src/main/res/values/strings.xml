@@ -24,6 +24,8 @@
     <string name="choosePhoto">选择照片</string>
     <string name="register">注册</string>
     <string name="register_name_digits">_0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLIMNOPQRSTUVWXYZ</string>
+    <string name="rememberMe">记住我</string>
+    <string name="autoLogin">自动登录</string>
     <string-array name="gender">
         <item>
             男

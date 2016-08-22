@@ -2,15 +2,14 @@
     <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent" android:layout_height="match_parent">
        <TextView
-             android:text="TextView"
+             android:text="@string/login"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_alignParentTop="true"
              android:layout_centerHorizontal="true"
-             android:id="@+id/textView2"
              tools:text="@string/login"
              android:layout_margin="@dimen/activity_vertical_margin"
              android:textStyle="bold"
@@ -32,21 +31,20 @@
                  android:orientation="horizontal" >
 
 
-
                  <EditText
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
                      android:inputType="textPersonName"
-                     android:ems="10"
                      android:id="@+id/editTextUserName"
                      android:hint="@string/username"
                      style="@style/Widget.AppCompat.EditText"
-                     android:password="true" />
+                     android:digits="@string/register_name_digits" />
+
                  <TextView
-                     android:text="TextView"
+                     android:text="*"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-                     tools:text="@string/username" />
+                     tools:text="*" />
              </TableRow>
 
              <TableRow
@@ -59,17 +57,15 @@
                  <EditText
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-                     android:inputType="textPersonName"
-                     android:ems="10"
+                     android:inputType="textPassword"
                      android:id="@+id/editTextPassword"
                      android:hint="@string/password"
-                     style="@style/Widget.AppCompat.EditText"
-                     android:password="true" />
+                     style="@style/Widget.AppCompat.EditText" />
                  <TextView
-                     android:text="TextView"
+                     android:text="*"
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
-                     tools:text="@string/password" />
+                     tools:text="*" />
              </TableRow>
              <TableRow
                  android:layout_width="match_parent"
@@ -89,6 +85,26 @@
              android:layout_margin="@dimen/activity_vertical_margin"
              android:layout_below="@+id/tableLayout"
              >
+
+             <CheckBox
+                 android:text="@string/rememberMe"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/checkBoxRemberMe"
+                 android:layout_weight="1"
+                 style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                 android:checked="true"
+                 tools:text="@string/rememberMe" />
+
+             <CheckBox
+                 android:text="@string/autoLogin"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/checkBoxAutoLogin"
+                 android:layout_weight="1"
+                 style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                 android:checked="true"
+                 tools:text="@string/autoLogin" />
 
              <Button
                  android:text="@string/login"

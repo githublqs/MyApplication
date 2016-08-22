@@ -8,8 +8,12 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 
+import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 
@@ -53,6 +57,20 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity implements
                     }
                 });
         snackbar.show();
+    }
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(this);
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                //Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
 }

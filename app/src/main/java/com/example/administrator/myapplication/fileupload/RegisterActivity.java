@@ -112,6 +112,7 @@ public class RegisterActivity extends BaseAppCompatActivity   {
         Intent inttent=new Intent(RegisterActivity.this,LoginActivity.class);
         inttent.putExtra("username",mUserName);
         startActivity(inttent);
+        finish();
     }
 
     /**
@@ -329,18 +330,5 @@ public class RegisterActivity extends BaseAppCompatActivity   {
 
 
 
-    @Override
-    public void onValidationFailed(List<ValidationError> errors) {
-        for (ValidationError error : errors) {
-            View view = error.getView();
-            String message = error.getCollatedErrorMessage(this);
 
-            // Display error messages ;)
-            if (view instanceof EditText) {
-                ((EditText) view).setError(message);
-            } else {
-                //Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-            }
-        }
-    }
 }
