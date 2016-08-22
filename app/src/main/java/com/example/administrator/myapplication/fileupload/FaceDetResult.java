@@ -7,12 +7,11 @@ import java.util.List;
  */
 //{“ID”:”123456789”,“face_num”:2,”face_rect”:[{”left”:12,”top”:34,”width”:120,”height”:120},{”left”:12,”top”:34,”width”:120,”height”:120}],”errorcode”:0}
 public class FaceDetResult implements Serializable {
-    private static final long serialVersionUID = 136902301452537722L;
-    private  String ID;
+    private  String id;
     private  int face_num;
 
-    public String getID() {
-        return ID;
+    public String getId() {
+        return id;
     }
 
     public int getFace_num() {
@@ -30,8 +29,8 @@ public class FaceDetResult implements Serializable {
     private List<Face_Rect> face_rectList;
     private  int errorcode;
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setId(String ID) {
+        this.id = id;
     }
 
     public void setFace_num(int face_num) {
@@ -50,8 +49,8 @@ public class FaceDetResult implements Serializable {
 
     }
 
-    public FaceDetResult(String ID, int face_num, List<Face_Rect>  face_rectList, int errorcode) {
-        this.ID = ID;
+    public FaceDetResult(String id, int face_num, List<Face_Rect>  face_rectList, int errorcode) {
+        this.id = id;
         this.face_num = face_num;
         this.face_rectList = face_rectList;
         this.errorcode = errorcode;

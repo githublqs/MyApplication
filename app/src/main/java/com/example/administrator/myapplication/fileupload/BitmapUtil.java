@@ -34,6 +34,6 @@ public class BitmapUtil {
             e.printStackTrace();
         }
         return ret;
-
     }
+
 }

@@ -25,21 +25,22 @@
         <activity android:name=".Test_0_TabLayout_Activity" android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".CollapsingToolbarLayoutActivity" android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".fileupload.FileUploadActivity" android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".fileupload.UploadFaceListActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            >
-
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".fileupload.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
-        <activity android:name=".fileupload.LoginActivity" android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".fileupload.RegisterActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".fileupload.RegisterActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
+        </activity>
     </application>
 
 </manifest>

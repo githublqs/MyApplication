@@ -58,11 +58,6 @@ public class Base64Helper {
      * @return
      */
     public static String bitmapToBase64(Context context,Uri imageUri) {
-        /*try {
-            return  bitmapToBase64(MediaStore.Images.Media.getBitmap(context.getContentResolver(), imageUri));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
         InputStream inputStream= null;
         try {
             inputStream = context.getContentResolver().openInputStream(imageUri);

@@ -1,10 +1,13 @@
 //apply plugin: 'com.android.application'
 apply plugin: 'com.android.model.application'
+apply plugin: 'org.bitbucket.pvoid.android-apt'
 model {
 
     android {
         compileSdkVersion 24
         buildToolsVersion "23.0.2"
+
+
 
         //defaultConfig {
         defaultConfig.with {
@@ -84,10 +87,16 @@ model {
     }
 
 }
+
+
 dependencies {
+
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.android.support:design:24.1.1'
-    compile 'com.jakewharton:butterknife:8.1.0'
+    compile 'com.jakewharton:butterknife:8.2.1'
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
+    compile 'com.mobsandgeeks:android-saripaar:2.0.3'
 }
+

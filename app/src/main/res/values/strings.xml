@@ -15,11 +15,25 @@
     <string name="load_succeed">加载成功</string>
     <string name="load_fail">加载失败</string>
     <string name="login">登录</string>
+    <string name="login_page">登录页</string>
     <string name="username">用户名</string>
     <string name="photo">照片</string>
     <string name="password" >密码</string>
+    <string name="confirmPassword" >确认密码</string>
     <string name="nickname">昵称</string>
     <string name="choosePhoto">选择照片</string>
     <string name="register">注册</string>
+    <string name="register_name_digits">_0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLIMNOPQRSTUVWXYZ</string>
+    <string-array name="gender">
+        <item>
+            男
+        </item>
+        <item>
+            女
+        </item>
+        <item>
+            未知
+        </item>
+    </string-array>
 
 </resources>

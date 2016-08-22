@@ -255,9 +255,46 @@ public class UriResolver {
     }
 
 
+    //从相册截大图
+    public static Intent getScaledImageFrompPotoAlbum(Uri uri,int aspectX,int aspectY ,int outputX,int outputY){
+
+       /* Intent intent = new  Intent(
+						Intent.ACTION_GET_CONTENT);
+				intent.addCategory(Intent.CATEGORY_OPENABLE);*/
+
+
+
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
+
+        intent.setType("image/*");
+
+        intent.putExtra("crop", "true");
+
+        intent.putExtra("aspectX", aspectX);
+
+        intent.putExtra("aspectY", aspectY);
+
+        intent.putExtra("outputX", outputX);
+
+        intent.putExtra("outputY", outputY);
+
+        intent.putExtra("scale", true);
+
+        intent.putExtra("return-data", false);
+
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+
+        intent.putExtra("noFaceDetection", true); // no face detection
+        return intent;
+
+    }
+
+
 
     //截图，在 onActivityResult中拿到返回的数据（Uri），并将Uri传递给截图的程序，如拍照后
-    public  static Intent getCropImageUri(Uri uri, int outputX, int outputY){
+    public  static Intent getCropImageUri(Uri uri,int aspectX,int aspectY, int outputX, int outputY){
         // cropImageUri(imageUri, 800, 400, CROP_BIG_PICTURE); 大
         //cropImageUri(imageUri, 300, 150, CROP_SMALL_PICTURE);小
             Intent intent = new Intent("com.android.camera.action.CROP");
@@ -266,9 +303,9 @@ public class UriResolver {
 
             intent.putExtra("crop", "true");
 
-            intent.putExtra("aspectX", 2);
+            intent.putExtra("aspectX", aspectX);
 
-            intent.putExtra("aspectY", 1);
+            intent.putExtra("aspectY", aspectY);
 
             intent.putExtra("outputX", outputX);
 
@@ -314,8 +351,6 @@ public class UriResolver {
                 intent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 intent.setType("image/*");
-
-
 
 
                 //而这个图片选择器可以屏蔽掉那个auto backup的目录.所以就开始打算用这个图片选择器来选图片了.

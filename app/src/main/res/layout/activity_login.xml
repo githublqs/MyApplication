@@ -1,103 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+        android:layout_width="match_parent" android:layout_height="match_parent">
+       <TextView
+             android:text="TextView"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentTop="true"
+             android:layout_centerHorizontal="true"
+             android:id="@+id/textView2"
+             tools:text="@string/login"
+             android:layout_margin="@dimen/activity_vertical_margin"
+             android:textStyle="bold"
+             android:textSize="18sp"
+             android:textColor="@color/light_blue" />
 
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/textView2"
-        tools:text="@string/login"
-        android:layout_margin="@dimen/activity_vertical_margin"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:textColor="@color/light_blue" />
+         <TableLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_below="@+id/textView2"
+             android:layout_centerHorizontal="true"
+             android:stretchColumns="0"
+             android:id="@+id/tableLayout"
+             android:layout_margin="@dimen/activity_vertical_margin">
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:stretchColumns="0"
-        android:id="@+id/tableLayout"
-        android:layout_margin="@dimen/activity_vertical_margin">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" >
-
-
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/editTextUserName"
-                android:hint="@string/username"
-                style="@style/Widget.AppCompat.EditText"
-                android:password="true" />
-            <TextView
-                android:text="TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="@string/username" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" >
+             <TableRow
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:orientation="horizontal" >
 
 
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/editTextPassword"
-                android:hint="@string/password"
-                style="@style/Widget.AppCompat.EditText"
-                android:password="true" />
-            <TextView
-                android:text="TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="@string/password" />
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" >
+                 <EditText
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:inputType="textPersonName"
+                     android:ems="10"
+                     android:id="@+id/editTextUserName"
+                     android:hint="@string/username"
+                     style="@style/Widget.AppCompat.EditText"
+                     android:password="true" />
+                 <TextView
+                     android:text="TextView"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     tools:text="@string/username" />
+             </TableRow>
 
-        </TableRow>
+             <TableRow
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:orientation="horizontal" >
 
 
-    </TableLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/activity_vertical_margin"
-        android:layout_below="@+id/tableLayout"
-        >
+                 <EditText
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:inputType="textPersonName"
+                     android:ems="10"
+                     android:id="@+id/editTextPassword"
+                     android:hint="@string/password"
+                     style="@style/Widget.AppCompat.EditText"
+                     android:password="true" />
+                 <TextView
+                     android:text="TextView"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     tools:text="@string/password" />
+             </TableRow>
+             <TableRow
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:orientation="horizontal" >
 
-        <Button
-            android:text="@string/login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnLogin"
-            android:layout_weight="1"
-            android:layout_margin="@dimen/activity_vertical_margin"
-            style="@style/Widget.AppCompat.Button.Colored" />
-    </LinearLayout>
+             </TableRow>
 
-</RelativeLayout>
+
+         </TableLayout>
+
+         <LinearLayout
+             android:orientation="horizontal"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_centerHorizontal="true"
+             android:layout_margin="@dimen/activity_vertical_margin"
+             android:layout_below="@+id/tableLayout"
+             >
+
+             <Button
+                 android:text="@string/login"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/btnLogin"
+                 android:layout_weight="1"
+                 android:layout_margin="@dimen/activity_vertical_margin"
+                 style="@style/Widget.AppCompat.Button.Colored" />
+         </LinearLayout>
+    </RelativeLayout>
+
