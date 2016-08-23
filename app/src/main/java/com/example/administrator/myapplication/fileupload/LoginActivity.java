@@ -12,6 +12,7 @@ import android.widget.TableLayout;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.administrator.myapplication.MainActivity;
 import com.example.administrator.myapplication.R;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -72,17 +73,23 @@ public class LoginActivity extends BaseAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        if (savedInstanceState!=null){
-            SharedPreferences sharedPreferences=getSharedPreferences("settings",MODE_PRIVATE);
-            mUserName=sharedPreferences.getString("username","");
-            mPassword=sharedPreferences.getString("password","");
+
+        SharedPreferences sharedPreferences=getSharedPreferences("settings",MODE_PRIVATE);
+        mUserName=sharedPreferences.getString("username","");
+        mPassword=sharedPreferences.getString("password","");
+        if ("".equals(mUserName)){
             mRemberMe=sharedPreferences.getBoolean("remberme",true);
             mAutoLogin=sharedPreferences.getBoolean("autologin",true);
-            editTextUserName.setText(mUserName);
-            editTextPassword.setText(mPassword);
-            checkBoxRemberMe.setChecked(mRemberMe);
-            checkBoxAutoLogin.setChecked(mAutoLogin);
+        }else{
+            mRemberMe=sharedPreferences.getBoolean("remberme",false);
+            mAutoLogin=sharedPreferences.getBoolean("autologin",false);
         }
+
+        editTextUserName.setText(mUserName);
+        editTextPassword.setText(mPassword);
+        checkBoxRemberMe.setChecked(mRemberMe);
+        checkBoxAutoLogin.setChecked(mAutoLogin);
+
        Intent intent=getIntent();
         if (intent!=null){
             if (intent.hasExtra("username")){
@@ -102,12 +109,6 @@ public class LoginActivity extends BaseAppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
-                        /*resultMap.put("username",userinfo.getUsername());
-                        resultMap.put("loginSuccess",true);//这个接口怎么用示范一下
-                        resultMap.put("errorcode",0);//这个接口怎么用示范一下
-
-                        */
-
                         try {
                             if(jsonObject.getBoolean("loginSuccess")){
                                 String username=jsonObject.getString("username");
@@ -124,7 +125,7 @@ public class LoginActivity extends BaseAppCompatActivity {
                                 btnLogin.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Intent intent=new Intent(LoginActivity.this,FileUploadActivity.class);
+                                        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                                         startActivity(intent);
                                         finish();
                                     }

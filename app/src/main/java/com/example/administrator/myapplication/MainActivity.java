@@ -30,6 +30,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.administrator.myapplication.fileupload.UploadFaceListFragment;
+
 import java.util.ArrayList;
 
 import as2.lqs.com.mylibrary.JNITest;
@@ -53,10 +55,10 @@ public class MainActivity extends AppCompatActivity/* implements View.OnClickLis
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
 //使用CollapsingToolbarLayout必须把title设置到CollapsingToolbarLayout上，设置到Toolbar上则不会显示
         CollapsingToolbarLayout mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout);
         mCollapsingToolbarLayout.setTitle("CollapsingToolbarLayout");
+        mCollapsingToolbarLayout.setActivated(false);
 //通过CollapsingToolbarLayout修改字体颜色
         mCollapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);//设置还没收缩时状态下字体颜色
         mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.GREEN);//设置收缩后Toolbar上字体的颜色
@@ -74,11 +76,11 @@ public class MainActivity extends AppCompatActivity/* implements View.OnClickLis
     setUpViewPager();
        /* JNITest jniTest=new JNITest();
         Toast.makeText(getApplicationContext(),jniTest.getStrFromJni(),Toast.LENGTH_SHORT).show();*/
-        setUpListeners();
+        //setUpListeners();
 
     }
 
-    private void setUpListeners() {
+    /*private void setUpListeners() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,18 +89,20 @@ public class MainActivity extends AppCompatActivity/* implements View.OnClickLis
                         .setAction("Action", null).show();
             }
         });
-    }
+    }*/
 
     private void setUpViewPager() {
         list_title = new ArrayList<String>();
         list_title.add("pager0");
-        list_title.add("pager1");
+        list_title.add("上传图片列表");
         list_title.add("pager2");
 
         list_fragments = new ArrayList<Fragment>();
 
-        list_fragments.add(MDWidgetFragment.newInstance());
+        //list_fragments.add(MDWidgetFragment.newInstance());
+
         list_fragments.add(RecycleViewFragment.newInstance());
+        list_fragments.add(UploadFaceListFragment.newInstance());
         list_fragments.add(ChildViewPagerFragment.newInstance());
 
         tabCustomTab_FindFragment_title=(TabLayout)findViewById(R.id.tabCustomTab_FindFragment_title);

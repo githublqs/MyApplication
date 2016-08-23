@@ -26,20 +26,6 @@ public class UploadFaceListActivity extends AppCompatActivity implements PullToR
     private Dialog pDialog;
     private boolean isFirstIn;
     private PullToRefreshLayout ptrl;
-
-   /* @Override
-    public void onWindowFocusChanged(boolean hasFocus)
-    {
-        super.onWindowFocusChanged(hasFocus);
-        // 第一次进入自动刷新
-
-        if (isFirstIn)
-        {
-            ptrl.autoRefresh();
-            isFirstIn = false;
-        }
-    }*/
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +41,6 @@ public class UploadFaceListActivity extends AppCompatActivity implements PullToR
         showPDialog();
     }
     private  PageInfo pageInfo=new PageInfo(1,Constant.PageSize,true);
-
     private void fetchUploadFaces(final PageInfo pageInfo) {
         String requestBody=pageInfo.toJsonString();
         CustomJsonArrayRequest req=new CustomJsonArrayRequest(

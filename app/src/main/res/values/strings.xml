@@ -18,8 +18,8 @@
     <string name="login_page">登录页</string>
     <string name="username">用户名</string>
     <string name="photo">照片</string>
-    <string name="password" >密码</string>
-    <string name="confirmPassword" >确认密码</string>
+    <string name="password">密码</string>
+    <string name="confirmPassword">确认密码</string>
     <string name="nickname">昵称</string>
     <string name="choosePhoto">选择照片</string>
     <string name="register">注册</string>

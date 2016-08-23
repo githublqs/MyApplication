@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.example.administrator.myapplication.R;
 
 /**
- * Created by Administrator on 2016/8/17.
+ * Created by lqs on 2016/8/17.
  */
 public class CustomProgressDialog {
     /**
@@ -36,14 +36,11 @@ public class CustomProgressDialog {
         // 使用ImageView显示动画
         spaceshipImage.startAnimation(hyperspaceJumpAnimation);
         tipTextView.setText(msg);// 设置加载信息
-
         Dialog loadingDialog = new Dialog(context, R.style.loading_dialog);// 创建自定义样式dialog
-
         loadingDialog.setCancelable(false);// 不可以用“返回键”取消
         loadingDialog.setContentView(layout, new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT));// 设置布局
         return loadingDialog;
-
     }
 }

@@ -3,7 +3,10 @@ package com.example.administrator.myapplication.fileupload;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class PageInfo {
+import java.io.Serializable;
+
+public class PageInfo implements Serializable{
+	private static final long serialVersionUID = -7622967957690712426L;
 	private int pageNo;
 	private int pageSize;
 	public int getPageNo() {
@@ -20,7 +23,6 @@ public class PageInfo {
 	}
 	public PageInfo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public PageInfo(int pageNo, int pageSize) {
 		super();

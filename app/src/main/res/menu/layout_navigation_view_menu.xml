@@ -25,18 +25,11 @@
     </group>
 
     <item android:title="Sub items">
-
         <menu>
-
             <item
                 android:id="@+id/sub_exit"
                 android:icon="@mipmap/ic_launcher"
                 android:title="退出应用" />
-
-            <item
-                android:id="@+id/sub_switch"
-                android:icon="@mipmap/ic_launcher"
-                android:title="切换主题" />
         </menu>
     </item>
 
