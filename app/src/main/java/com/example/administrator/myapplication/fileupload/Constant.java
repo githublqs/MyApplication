@@ -5,8 +5,8 @@ package com.example.administrator.myapplication.fileupload;
  */
 
 public class Constant {
-    //public static final  String UploadHost="http://http://100.0.2.2:8080/SSM/urlImg";
-    public static final  String FaceHost="http://10.0.2.2:8080/SSM/";
+    //public static final  String FaceHost="http://10.0.2.2:8080/SSM/";
+    public static final  String FaceHost="http://dojochinaextjs.imwork.net/SSM/";
     //public static final  String FaceHost="http://dojochinaextjs.imwork.net/SSM/";
     public static final  String ComputeSimUrl=FaceHost+"urlImg";
     public static final  String FaceDetUrl=FaceHost+"faceRec/faceDetBase64";

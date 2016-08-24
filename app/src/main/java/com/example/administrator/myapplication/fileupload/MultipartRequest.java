@@ -2,6 +2,7 @@ package com.example.administrator.myapplication.fileupload;
 import android.graphics.Bitmap;
 import android.util.Log;
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -131,6 +132,9 @@ public class MultipartRequest extends Request<String>{
         mListener = listener;
         mParams = params;
         buildMultipartBitmapEntity();
+        this.setRetryPolicy(new DefaultRetryPolicy(50000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+
     }
 
     private void buildMultipartBitmapEntity() {
@@ -229,4 +233,5 @@ public class MultipartRequest extends Request<String>{
         InputStream sbs = new ByteArrayInputStream(baos.toByteArray());
         return sbs;
     }
+
 }

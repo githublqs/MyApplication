@@ -348,20 +348,22 @@ public class UriResolver {
 				//content://media/external/images/media/26467
 				InputStream in=context.getContentResolver().openInputStream(imageFileUri);
 				*/
-                intent = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                intent.setType("image/*");
 
+
+                /*intent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                intent.setType("image*//*");
+*/
 
                 //而这个图片选择器可以屏蔽掉那个auto backup的目录.所以就开始打算用这个图片选择器来选图片了.
                 //这个方法就是
                 //4.3返回的是带文件路径的,而4.4返回的却是content://com.android.providers.media.documents/document/image:3951这样的,
                 // 没有路径,只有图片编号的uri.这就导致接下来无法根据图片路径来裁剪的步骤了
                 // .测试发现下面能返回Url content://com.android.providers.media.documents/document/image:3951
-				/*Intent intent = new  Intent(
+				intent = new  Intent(
 						Intent.ACTION_GET_CONTENT);
 				intent.addCategory(Intent.CATEGORY_OPENABLE);
-				intent.setType("image*//*");*/
+				intent.setType("image/*");
 
                 break;
             case Constant.SELECT_CAMER:

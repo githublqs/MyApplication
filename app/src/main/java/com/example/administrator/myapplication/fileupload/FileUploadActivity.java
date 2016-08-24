@@ -1,5 +1,4 @@
 package com.example.administrator.myapplication.fileupload;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -61,6 +60,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -70,23 +70,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.administrator.myapplication.R;
-
-
 public class FileUploadActivity extends ActionBarActivity {
     //private Bitmap bitmapToFaceDet;
-
     private static RequestQueue mSingleQueue;
     private static String TAG = "test";
-
 /*	private TextView mShowResponse;*/
-
     //private ProgressDialog mDialog;
     private static final int CMD_FACE_DET_RETURN = 2;
     private static final int CMD_FACE_DET = 1;
     private HandlerThread mHandlerThread = new HandlerThread("mHandlerThread");
     private Handler threadHandler;
     Socket socket;
-
     private OutputStream socketOutputStream;
     private Handler mainHandler = new Handler() {
         @Override
@@ -114,9 +108,7 @@ public class FileUploadActivity extends ActionBarActivity {
     private static final int REQUEST_CODE_SEL_PIC2 = 2;
     private ContentLoadingProgressBar contentLoadingProgress;
     private Uri imgFileUri;
-
     private void showFaceDetResult(int index, Uri imgFileUri, FaceDetResult faceDetResult) {
-
        Bitmap bitmapToFaceDet = index == 0 ?
                 ImageResizer.decodeSampledBitmapFromFilePath(UriResolver.getPath(this, imgFileUri), iv0.getWidth(), iv0.getHeight()) :
                 ImageResizer.decodeSampledBitmapFromFilePath(UriResolver.getPath(this, imgFileUri), iv1.getWidth(), iv1.getHeight());
@@ -130,6 +122,7 @@ public class FileUploadActivity extends ActionBarActivity {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(2);
         //canvas.drawLine(0, 0, bitmapToFaceDet.getWidth(), bitmapToFaceDet.getHeight(), paint);
+        showSnackbar("检测到"+faceDetResult.getFace_num()+"张人脸", button_face_det);
         if (faceDetResult.getFace_num() > 0) {
             List<Face_Rect> faceRectList = faceDetResult.getFace_rectList();
             for (Face_Rect faceRect : faceRectList) {
@@ -506,11 +499,14 @@ public class FileUploadActivity extends ActionBarActivity {
         }, new ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                mSingleQueue.cancelAll("doComputeSim");
                 hideLoadingProgress();
-                Toast.makeText(getApplicationContext(), "uploadError,response = " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.i("YanZi", "error,response = " + error.getMessage());
+                //Toast.makeText(getApplicationContext(), "uploadError,response = " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                showSnackbar("网络或服务器错误",button_compute_sim);
+
             }
         }, "imgs", params, bitmaps); //注意这个key必须是f_file[],后面的[]不能少
+        request.setTag("doComputeSim");
         mSingleQueue.add(request);
         showLoadingProgress();
     }
@@ -596,18 +592,21 @@ public class FileUploadActivity extends ActionBarActivity {
                 new Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
-                        showSnackbar("人脸检测返回", button_face_det);
                         hideLoadingProgress();
                         showFaceDetResult(index, imgFileUri, fromFaceDetResultJsonObject(jsonObject));
                     }
                 }, new ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
+                mSingleQueue.cancelAll("doFaceDet");
                 hideLoadingProgress();
-                showSnackbar(volleyError.getMessage(), button_face_det);
+                showSnackbar("网络或服务器错误", button_face_det);
 
             }
         });
+        jsonObjectRequest.setTag("doFaceDet");
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(50000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));//还是会重复提交
+        //jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(50000,0, 0f));//无法超时了，看来取消最合适
         mSingleQueue.add(jsonObjectRequest);
         hideLoadingProgress();
 
@@ -651,14 +650,10 @@ public class FileUploadActivity extends ActionBarActivity {
                 });
         snackbar.show();
     }
-
     private void showLoadingProgress() {
         contentLoadingProgress.show();
     }
-
     private void hideLoadingProgress() {
         contentLoadingProgress.hide();
     }
-
-
 }
