@@ -1,37 +1,41 @@
 package com.example.administrator.myapplication.fileupload;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
-
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.baoyz.swipemenulistview.BaseSwipListAdapter;
 import com.example.administrator.myapplication.R;
-
 import java.util.ArrayList;
-
-/**
- * Created by Administrator on 2016/8/17.
- */
-
-public class UploadFaceAdapter extends BaseAdapter {
+public class UploadFaceAdapter extends BaseSwipListAdapter{
     private  Context context;
     private  ArrayList<UploadFace> uploadFaces;
     private LayoutInflater inflater;
+    public ArrayList<UploadFace> getUploadFaces() {
+        return uploadFaces;
+    }
     private ImageLoader imageLoader;
 
-    public UploadFaceAdapter() {
-        super();
-    }
-    public UploadFaceAdapter(Context context, ArrayList<UploadFace> uploadFaces) {
+   public UploadFaceAdapter(Context context, ArrayList<UploadFace> uploadFaces) {
         this.context=context;
         this.uploadFaces=uploadFaces;
-    }
 
+   }
+    public void remove(UploadFace uploadFace){
+        uploadFaces.remove(uploadFace);
+    }
+    @Override
+    public boolean getSwipEnableByPosition(int position) {
+        /*if(position % 2 == 0){
+            return false;
+        }*/
+        return true;
+    }
     @Override
     public int getCount() {
         return uploadFaces.size();
@@ -48,35 +52,39 @@ public class UploadFaceAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         if (inflater == null)
             inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
         if (imageLoader == null)
             imageLoader =VolleyController.getInstance(context).getImageLoader();
-
-
-        ViewHolder viewHolder=null;
-        if (view==null){
-            view = inflater.inflate(R.layout.uploadface_list_item, null);
-            NetworkImageView niv= (NetworkImageView) view.findViewById(R.id.uploadface_image);
-            TextView tv= (TextView) view.findViewById(R.id.uploadface_date);
-            viewHolder=new ViewHolder();
-            viewHolder.ivFace=niv;
-            viewHolder.tvDate=tv;
-            view.setTag(viewHolder);
+        ViewHolder vh=null;
+        if (convertView==null){
+            vh=new ViewHolder();
+            convertView = inflater.inflate(R.layout.uploadface_list_item,
+                    parent, false);
+            NetworkImageView niv= (NetworkImageView) convertView.findViewById(R.id.uploadface_image);
+            TextView tv= (TextView) convertView.findViewById(R.id.uploadface_date);
+            TextView tvId= (TextView) convertView.findViewById(R.id.uploadface_id);
+            vh.niv=niv;
+            vh.tvDate=tv;
+            vh.tvId=tvId;
+            convertView.setTag(vh);
         }else {
-            viewHolder= (ViewHolder) view.getTag();
+            vh= (ViewHolder) convertView.getTag();
         }
-        UploadFace uploadFace=uploadFaces.get(i);
-        viewHolder.ivFace.setImageUrl(Constant.UploadFaceThumbnailDirUrl+uploadFace.getThumbnailImgFileName(),imageLoader);
-        viewHolder.tvDate.setText((CharSequence) uploadFace.getDate());
-        return view;
+
+        UploadFace uploadFace=uploadFaces.get(position);
+        vh.niv.setImageResource(R.mipmap.publicloading);
+        vh.niv.setImageUrl(Constant.UploadFaceThumbnailDirUrl+uploadFace.getThumbnailImgFileName(),imageLoader);
+        vh.tvDate.setText((CharSequence) uploadFace.getDate());
+        vh.tvId.setText(uploadFace.getId()+"");
+        return convertView;
+
     }
     class ViewHolder{
-        NetworkImageView ivFace;
+        NetworkImageView niv;
         TextView tvDate;
+        public TextView tvId;
     }
-
 }

@@ -2,28 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-
-    <!--<ListView
-        android:id="@+id/listview_uploadface"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />-->
-    <com.example.administrator.myapplication.pullableview.PullToRefreshLayout
+    <net.mobctrl.views.SuperSwipeRefreshLayout
         android:id="@+id/refresh_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <include layout="@layout/refresh_head" />
-
-        <com.example.administrator.myapplication.pullableview.PullableListView
+        android:layout_height="match_parent"  >
+        <com.example.administrator.myapplication.custom.view.CustomSwipeMenuListView
             android:id="@+id/listview_uploadface"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
             android:divider="@color/gray"
             android:dividerHeight="1dp" />
+            <!--<ListView
+                android:id="@+id/listview_uploadface"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:divider="@color/gray"
+                android:dividerHeight="1dp" />-->
+    </net.mobctrl.views.SuperSwipeRefreshLayout>
 
-        <include layout="@layout/load_more" />
-
-    </com.example.administrator.myapplication.pullableview.PullToRefreshLayout>
 </LinearLayout>

@@ -13,14 +13,12 @@
         android:src="@mipmap/ic_launcher" />
 
     <TextView
-        android:id="@+id/movie_rating"
-        android:textColor="#f243"
-        android:textSize="13sp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/movie_name"
-        android:layout_toRightOf="@+id/movie_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />-->
+        android:id="@+id/uploadface_id"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
     <TextView
         android:id="@+id/uploadface_date"
         android:textColor="#aaa"
@@ -30,5 +28,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/date"/>
+
 
 </RelativeLayout>

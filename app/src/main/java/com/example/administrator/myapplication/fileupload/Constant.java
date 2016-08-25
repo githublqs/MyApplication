@@ -15,6 +15,7 @@ public class Constant {
     public static final  String UploadFaceListUrl=FaceHost+"faceRec/uploadFaceList";
     public static final  String UserRegisterUrl=FaceHost+"userinfos/userRegister";
     public static final  String UserLoginUrl=FaceHost+"userinfos/userLogin";
+    public static final  String DeleteUploadFaceUrl=FaceHost+"faceRec/deletUploadFace";
     public static final  String SocketHost="119.90.45.125";
     public static final  int SocketPort=9991;
     public static final int PageSize=10;

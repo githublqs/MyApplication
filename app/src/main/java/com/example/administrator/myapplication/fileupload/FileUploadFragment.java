@@ -16,6 +16,7 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.app.AlertDialog;
@@ -35,9 +36,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.administrator.myapplication.MainActivity;
 import com.example.administrator.myapplication.R;
-import com.example.administrator.myapplication.pullableview.PullToRefreshLayout;
-import com.example.administrator.myapplication.pullableview.PullableListView;
+import com.example.administrator.myapplication.custom.view.PageStateListener;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -65,7 +67,7 @@ import static android.app.Activity.RESULT_OK;
 /**
  * Created by lqs on 2016/8/23.
  */
-public class FileUploadFragment extends Fragment {
+public class FileUploadFragment extends Fragment implements PageStateListener {
     private static final String TAG = "UploadFaceListFragment";
     private static final int REQUEST_CODE_SEL_PIC1 = 1;
     private static final int REQUEST_CODE_SEL_PIC2 = 2;
@@ -176,6 +178,12 @@ public class FileUploadFragment extends Fragment {
             mListener = (OnFragmentInteractionListener) context;
         }
     }
+
+    @Override
+    public boolean isExecuting() {
+        return false;
+    }
+
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
@@ -440,7 +448,6 @@ public class FileUploadFragment extends Fragment {
             List<Face_Rect> face_rectList = new ArrayList<Face_Rect>();
             for (int i = 0; i < face_rectArray.length(); i++) {
                 JSONObject jo = (JSONObject) face_rectArray.get(i);
-
                 Face_Rect face_rect = new Face_Rect(jo.getInt("left"), jo.getInt("top"), jo.getInt("width"), jo.getInt("height"));
                 face_rectList.add(face_rect);
             }

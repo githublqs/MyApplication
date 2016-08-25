@@ -9,7 +9,6 @@ public class UploadFace {
     private String imgFileiName;
     private  String date;
     private long id;
-
     public UploadFace() {
     }
 
@@ -54,5 +53,30 @@ public class UploadFace {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UploadFace that = (UploadFace) o;
+
+        if (id != that.id) return false;
+        if (thumbnailImgFileName != null ? !thumbnailImgFileName.equals(that.thumbnailImgFileName) : that.thumbnailImgFileName != null)
+            return false;
+        if (imgFileiName != null ? !imgFileiName.equals(that.imgFileiName) : that.imgFileiName != null)
+            return false;
+        return date != null ? date.equals(that.date) : that.date == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = thumbnailImgFileName != null ? thumbnailImgFileName.hashCode() : 0;
+        result = 31 * result + (imgFileiName != null ? imgFileiName.hashCode() : 0);
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (int) (id ^ (id >>> 32));
+        return result;
     }
 }

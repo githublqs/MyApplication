@@ -86,6 +86,10 @@ public class VolleyController {
         getRequestQueue().add(req);
     }
 
+    public <T> void cancelAll(Object tag) {
+        getRequestQueue().cancelAll(tag);
+    }
+
     // 通过各Request对象的Tag属性取消请求
     public void cancelPendingRequests(Object tag) {
         if (reqQueue != null) {

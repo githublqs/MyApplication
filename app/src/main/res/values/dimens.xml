@@ -3,4 +3,11 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <!-- UndoDialog -->
+    <dimen name="undo_dialog_height">45dp</dimen>
+    <dimen name="undo_dialog_padding">10dp</dimen>
+    <dimen name="undo_dialog_layout_margin_bottom">10dp</dimen>
+    <dimen name="undo_dialog_horizontal_line_margin">10dp</dimen>
+    <dimen name="undo_dialog_textview_size">18sp</dimen>
 </resources>
