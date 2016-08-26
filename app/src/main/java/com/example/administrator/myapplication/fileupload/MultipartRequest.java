@@ -10,6 +10,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 
 import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.InputStreamBody;
 import org.apache.http.entity.mime.content.StringBody;
@@ -17,6 +18,7 @@ import org.apache.http.entity.mime.content.StringBody;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -132,21 +134,30 @@ public class MultipartRequest extends Request<String>{
         mListener = listener;
         mParams = params;
         buildMultipartBitmapEntity();
-        this.setRetryPolicy(new DefaultRetryPolicy(50000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-
+        //this.setRetryPolicy(new DefaultRetryPolicy(50000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     private void buildMultipartBitmapEntity() {
         if (mBitmaps != null && mBitmaps.size() > 0) {
             for (Bitmap bitmap : mBitmaps) {
-                entity.addPart(mFilePartName, new InputStreamBody(bitmap2IS(bitmap),mFilePartName));
+
+                //entity.addPart(mFilePartName, new InputStreamBody(bitmap2IS(bitmap),mFilePartName));
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] b = baos.toByteArray();
+                try {
+                    baos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                ByteArrayBody byteArrayBody = new ByteArrayBody(b, "android.jpg");
+                entity.addPart("mFilePartName",byteArrayBody);
             }
             //long l = entity.getContentLength();
             //Log.i(TAG,mBitmaps.size()+"个，长度："+l);
         }
 
-        try {
+       try {
             if (mParams != null && mParams.size() > 0) {
                 for (Map.Entry<String, String> entry : mParams.entrySet()) {
                     entity.addPart(
@@ -211,7 +222,7 @@ public class MultipartRequest extends Request<String>{
                 entity.addPart(mFilePartName, new FileBody(file));
             }
             long l = entity.getContentLength();
-            Log.i("YanZi-volley", mFileParts.size() + "个，长度：" + l);
+          //  Log.i("YanZi-volley", mFileParts.size() + "个，长度：" + l);
         }
 
         try {

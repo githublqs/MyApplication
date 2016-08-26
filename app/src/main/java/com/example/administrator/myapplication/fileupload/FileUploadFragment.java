@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -39,6 +40,9 @@ import com.android.volley.toolbox.Volley;
 import com.example.administrator.myapplication.MainActivity;
 import com.example.administrator.myapplication.R;
 import com.example.administrator.myapplication.custom.view.PageStateListener;
+import com.example.administrator.myapplication.entity.FaceCompareResult;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 
 import org.json.JSONArray;
@@ -87,6 +91,7 @@ public class FileUploadFragment extends Fragment implements PageStateListener {
     private Button button_sel_pic1;
     private Button button_sel_pic2;
     private Button button_face_det;
+    private TextView tvSimilarity;
 
     public static Fragment newInstance() {
         Bundle args = new Bundle();
@@ -106,6 +111,10 @@ public class FileUploadFragment extends Fragment implements PageStateListener {
         radioGroupSelectImg = (RadioGroup) view.findViewById(R.id.radioGroupSelectImg);
         radioButtonSelectImg0 = (RadioButton) view.findViewById(R.id.radioButtonSelectImg0);
         radioButtonSelectImg1 = (RadioButton) view.findViewById(R.id.radioButtonSelectImg1);
+
+        tvSimilarity= (TextView) view.findViewById(R.id.tvSimilarity);
+
+
 
 
 
@@ -202,6 +211,31 @@ public class FileUploadFragment extends Fragment implements PageStateListener {
         pDialog=null;
     }
 
+
+
+    private void  drawFaceResult(int index, Bitmap bitmapToFaceDet, Face_Rect faceRect){
+        if(faceRect==null)
+            return;
+       /* Bitmap bitmapToFaceDet = index == 0 ?
+                ImageResizer.decodeSampledBitmapFromFilePath(UriResolver.getPath(getContext(), imgFileUri), iv0.getWidth(), iv0.getHeight()) :
+                ImageResizer.decodeSampledBitmapFromFilePath(UriResolver.getPath(getContext(), imgFileUri), iv1.getWidth(), iv1.getHeight());*/
+        Bitmap bitmapToFaceDetCpy=bitmapToFaceDet.copy(Bitmap.Config.ARGB_8888,true);
+        Canvas canvas = new Canvas(bitmapToFaceDetCpy);
+        Paint paint = new Paint();
+        paint.setColor(Color.RED);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(2);
+        canvas.drawRect((float) faceRect.getLeft(),
+        (float) faceRect.getTop(),
+        (float) faceRect.getLeft() + faceRect.getWidth(),
+        (float) faceRect.getTop() + faceRect.getHeight(), paint);
+        if (index == 0) {
+            iv0.setImageBitmap(bitmapToFaceDetCpy);
+        } else if (index == 1) {
+            iv1.setImageBitmap(bitmapToFaceDetCpy);
+        }
+
+    }
     private void showFaceDetResult(int index, Uri imgFileUri, FaceDetResult faceDetResult) {
         Bitmap bitmapToFaceDet = index == 0 ?
                 ImageResizer.decodeSampledBitmapFromFilePath(UriResolver.getPath(getContext(), imgFileUri), iv0.getWidth(), iv0.getHeight()) :
@@ -365,8 +399,8 @@ public class FileUploadFragment extends Fragment implements PageStateListener {
         String url = Constant.ComputeSimUrl; //换成自己的测试url地址
         Map<String, String> params = new HashMap<String, String>();
         List<Bitmap> bitmaps = new ArrayList<Bitmap>();
-        Bitmap bitmap1 = ImageResizer.decodeSampledBitmapFromFilePath(UriResolver.getPath(getContext(), imgFileUri0), iv0.getWidth(), iv0.getHeight());
-        Bitmap bitmap2 = ImageResizer.decodeSampledBitmapFromFilePath(UriResolver.getPath(getContext(), imgFileUri1), iv1.getWidth(), iv1.getHeight());
+        final Bitmap bitmap1 = ImageResizer.decodeSampledBitmapFromFilePath(UriResolver.getPath(getContext(), imgFileUri0), iv0.getWidth(), iv0.getHeight());
+        final Bitmap bitmap2 = ImageResizer.decodeSampledBitmapFromFilePath(UriResolver.getPath(getContext(), imgFileUri1), iv1.getWidth(), iv1.getHeight());
         bitmaps.add(bitmap1);
         bitmaps.add(bitmap2);
         MultipartRequest request = new MultipartRequest(url, new Response.Listener<String>() {
@@ -376,28 +410,43 @@ public class FileUploadFragment extends Fragment implements PageStateListener {
                 //Toast.makeText(getApplicationContext(), "uploadSuccess,response = " + response, Toast.LENGTH_SHORT).show();
 
                 if (response != null) {
-                    JSONTokener jsonTokener = new JSONTokener(response);
+                    try {
+                        Gson gson = new GsonBuilder().create();
+                        FaceCompareResult faceCompareResult = gson.fromJson(response, FaceCompareResult.class);
+                        //绘制矩形区域
+                        Face_Rect rect0=faceCompareResult.getFace_rect().get(0);
+                        Face_Rect rect1=faceCompareResult.getFace_rect().get(1);
+                        drawFaceResult(0,bitmap1,rect0);
+                        drawFaceResult(1,bitmap2,rect1);
+                        String matching = faceCompareResult.getMatching();
+                        showSnackbar("比对结果:相似度:"+faceCompareResult.getSimilarity() + ("yes".equals(matching) ? " 达标" : " 未达标"), view);
+                        tvSimilarity.setText(
+                                String.format(getResources().getString(R.string.similarity),faceCompareResult.getSimilarity())
+                        );
+                    } catch (Exception e) {
+                    e.printStackTrace();
+                     }
+                    /*JSONTokener jsonTokener = new JSONTokener(response);
                     try {
                         JSONObject jsonObject = (JSONObject) jsonTokener.nextValue();
                         String matching = jsonObject.getString("matching");
                         showSnackbar("比对结果:相似度" + ("yes".equals(matching) ? "达标" : "未达标"), view);
                     } catch (JSONException e) {
                         e.printStackTrace();
-                    }
+                    }*/
                 }
-                Log.i("YanZi", "success,response = " + response);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 mSingleQueue.cancelAll("doComputeSim");
                 hideLoadingProgress();
-                //Toast.makeText(getApplicationContext(), "uploadError,response = " + error.getMessage(), Toast.LENGTH_SHORT).show();
                 showSnackbar("网络或服务器错误",button_compute_sim);
 
             }
         }, "imgs", params, bitmaps); //注意这个key必须是f_file[],后面的[]不能少
         request.setTag("doComputeSim");
+        request.setRetryPolicy(new DefaultRetryPolicy(20000,0,0));//还是会重复提交
         mSingleQueue.add(request);
         showLoadingProgress();
     }
@@ -476,9 +525,15 @@ public class FileUploadFragment extends Fragment implements PageStateListener {
         snackbar.show();
     }
     private void showLoadingProgress() {
+        if (tvSimilarity!=null){
+            tvSimilarity.setVisibility(View.GONE);
+        }
         contentLoadingProgress.show();
     }
     private void hideLoadingProgress() {
+        if (tvSimilarity!=null){
+            tvSimilarity.setVisibility(View.VISIBLE);
+        }
         contentLoadingProgress.hide();
     }
 

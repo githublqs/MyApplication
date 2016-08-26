@@ -158,7 +158,9 @@ public class ImageResizer {
 
     public static int calculateInSampleSize(BitmapFactory.Options options,
                                      int reqWidth, int reqHeight) {
-        if (reqWidth == 0 || reqHeight == 0) {
+       /*
+        限制不够严
+       if (reqWidth == 0 || reqHeight == 0) {
             return 1;
         }
         // Raw height and width of image
@@ -178,10 +180,28 @@ public class ImageResizer {
                     && (halfWidth / inSampleSize) >= reqWidth) {
                 inSampleSize *= 2;
             }
+        }*/
+
+        //限制不能超出 reqWidth和reqWidth
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            // Calculate ratios of height and width to requested height and width
+            final int heightRatio = Math.round((float) height / (float) reqHeight);
+            final int widthRatio = Math.round((float) width / (float) reqWidth);
+
+            // Choose the smallest ratio as inSampleSize value, this will guarantee
+            // a final image with both dimensions larger than or equal to the
+            // requested height and width.
+            inSampleSize = heightRatio > widthRatio ? heightRatio : widthRatio;
         }
 
-        //Log.d(TAG, "sampleSize:" + inSampleSize);
         return inSampleSize;
+
     }
     //通过url返回bitmap
     public static Bitmap decodeUriAsBitmap(Context context,Uri uri){

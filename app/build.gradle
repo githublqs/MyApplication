@@ -90,7 +90,6 @@ model {
 
 
 dependencies {
-
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.1.1'
@@ -98,6 +97,6 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.2.1'
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
     compile 'com.mobsandgeeks:android-saripaar:2.0.3'
-
+    compile 'com.google.code.gson:gson:2.7'
 }
 
