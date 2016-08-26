@@ -1,2 +1,2 @@
-[![image]](http://www.github.com/)  
-[image]: http://github.com/github.png "github"
+
+![app main page](/main.png)
