@@ -9,4 +9,6 @@
     <color name="light_blue">#6593cb</color>
     <color name="dark_gray">#525252</color>
 
+    <color name="black_overlay">#66000000</color>
+
 </resources>

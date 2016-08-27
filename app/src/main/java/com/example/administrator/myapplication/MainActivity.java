@@ -44,6 +44,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
+
 import com.example.administrator.myapplication.custom.view.CustomViewPager;
 import com.example.administrator.myapplication.custom.view.PageStateListener;
 import com.example.administrator.myapplication.fileupload.Constant;
@@ -54,6 +55,7 @@ import com.example.administrator.myapplication.fileupload.UploadFace;
 import com.example.administrator.myapplication.fileupload.UploadFaceAdapter;
 import com.example.administrator.myapplication.fileupload.UploadFaceListFragment;
 import com.example.administrator.myapplication.fileupload.VolleyController;
+import com.example.administrator.myapplication.fragment.CordovaFragment;
 
 import java.util.ArrayList;
 
@@ -74,7 +76,9 @@ implements UploadFaceListFragment.UploadFaceListFragmentInteractionListener ,Upl
     private static Object[] imageResId = {
             R.mipmap.ic_launcher,
             R.mipmap.ic_launcher,
-            R.mipmap.ic_launcher
+            R.mipmap.ic_launcher,
+            R.drawable.cordova
+
     };
     private TabLayout tabCustomTab_FindFragment_title;
     private ArrayList<Fragment> list_fragments ;
@@ -131,6 +135,8 @@ implements UploadFaceListFragment.UploadFaceListFragmentInteractionListener ,Upl
         list_title.add("人脸接口");
         list_title.add("上传图片列表");
         list_title.add("上传详情");
+        list_title.add("Cordova");
+
 
         list_fragments = new ArrayList<Fragment>();
 
@@ -141,6 +147,8 @@ implements UploadFaceListFragment.UploadFaceListFragmentInteractionListener ,Upl
         list_fragments.add(UploadFaceListFragment.newInstance());
         //list_fragments.add(ChildViewPagerFragment.newInstance());
         list_fragments.add(UploadDetailFragment.newInstance());
+        list_fragments.add(CordovaFragment.newInstance());
+
 
         tabCustomTab_FindFragment_title=(TabLayout)findViewById(R.id.tabCustomTab_FindFragment_title);
 
@@ -393,7 +401,7 @@ implements UploadFaceListFragment.UploadFaceListFragmentInteractionListener ,Upl
             }
         });
         imageRequest.setTag("getTabImage");
-        imageRequest.setRetryPolicy(new DefaultRetryPolicy(3000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));//还是会重复提交
+        imageRequest.setRetryPolicy(new DefaultRetryPolicy(3000,0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));//还是会重复提交
         VolleyController.getInstance(this).getRequestQueue().add(imageRequest);
     }
     @Override
