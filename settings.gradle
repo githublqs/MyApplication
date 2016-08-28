@@ -1,1 +1,1 @@
-include ':app', ':cordovalib'
+include ':app', ':cordovalib', ':xwalk_core_library'

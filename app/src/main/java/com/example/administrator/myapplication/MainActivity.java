@@ -55,7 +55,7 @@ import com.example.administrator.myapplication.fileupload.UploadFace;
 import com.example.administrator.myapplication.fileupload.UploadFaceAdapter;
 import com.example.administrator.myapplication.fileupload.UploadFaceListFragment;
 import com.example.administrator.myapplication.fileupload.VolleyController;
-import com.example.administrator.myapplication.fragment.CordovaFragment;
+import com.example.administrator.myapplication.fragment.CordovaFragment2;
 
 import java.util.ArrayList;
 
@@ -147,7 +147,7 @@ implements UploadFaceListFragment.UploadFaceListFragmentInteractionListener ,Upl
         list_fragments.add(UploadFaceListFragment.newInstance());
         //list_fragments.add(ChildViewPagerFragment.newInstance());
         list_fragments.add(UploadDetailFragment.newInstance());
-        list_fragments.add(CordovaFragment.newInstance());
+        list_fragments.add(CordovaFragment2.newInstance());
 
 
         tabCustomTab_FindFragment_title=(TabLayout)findViewById(R.id.tabCustomTab_FindFragment_title);

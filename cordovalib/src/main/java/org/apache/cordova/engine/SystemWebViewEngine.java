@@ -62,7 +62,7 @@ public class SystemWebViewEngine implements CordovaWebViewEngine {
     protected final SystemCookieManager cookieManager;
     protected CordovaPreferences preferences;
     protected CordovaBridge bridge;
-    protected CordovaWebViewEngine.Client client;
+    protected Client client;
     protected CordovaWebView parentWebView;
     protected CordovaInterface cordova;
     protected PluginManager pluginManager;
@@ -86,7 +86,7 @@ public class SystemWebViewEngine implements CordovaWebViewEngine {
     }
 
     @Override
-    public void init(CordovaWebView parentWebView, CordovaInterface cordova, CordovaWebViewEngine.Client client,
+    public void init(CordovaWebView parentWebView, CordovaInterface cordova, Client client,
               CordovaResourceApi resourceApi, PluginManager pluginManager,
               NativeToJsMessageQueue nativeToJsMessageQueue) {
         if (this.cordova != null) {
@@ -135,7 +135,7 @@ public class SystemWebViewEngine implements CordovaWebViewEngine {
         return webView;
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
+    @SuppressLint({"NewApi", "SetJavaScriptEnabled"})
     @SuppressWarnings("deprecation")
     private void initWebViewSettings() {
         webView.setInitialScale(0);

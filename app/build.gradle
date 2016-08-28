@@ -12,7 +12,7 @@ model {
         //defaultConfig {
         defaultConfig.with {
 
-            minSdkVersion.apiLevel = 15
+            minSdkVersion.apiLevel = 16
             targetSdkVersion.apiLevel = 24
 
 
@@ -86,8 +86,11 @@ model {
     }
 
 }
-
-
+repositories {
+    maven {
+        url 'https://download.01.org/crosswalk/releases/crosswalk/android/maven2'
+    }
+}
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     // https://mvnrepository.com/artifact/com.mcxiaoke.volley/library
@@ -99,7 +102,9 @@ dependencies {
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.android.support:support-v4:24.2.0'
     compile 'com.mcxiaoke.volley:library:1.0.19'
+
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
+
 }
 
