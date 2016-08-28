@@ -58,7 +58,7 @@ public class CordovaFragment extends BaseFragment implements PageStateListener {
 
     @Override
     protected String getHtmlUri() {
-        return "file:///android_asset/www/fragment2.html";
+        return "file:///android_asset/www/index.html";
     }
 
     // TODO: Rename method, update argument and hook method into UI event
