@@ -11,6 +11,9 @@
     <script type="text/javascript" src="../lib/jquery/jquery-3.1.0.js"></script>
 
     <script src="../lib/ionic/js/ionic.bundle.js"></script>
+    <script src="../lib/angular-route.js"></script>
+    <script src="../lib/ngStorage.js"></script>
+
     <script src="js/testFilter.js"></script>
     <script src="js/app.js"></script>
 
@@ -34,7 +37,14 @@
     <hello>这是测试</hello>
     <script type="text/ng-template" id="tpl.html">ng-template引入</script>
     <div ng-controller="personController" >
-        {{'DDDDDhelloxxx'| rHello }}
+        <div class="bar-header">
+            <a href="#div1">div1</a>
+            <a href="#div2">div2</a>
+            <a href="#div3">div3</a>
+            <a href="#content/13/5">点击去内容12</a>
+        </div>
+        <div ng-view></div>
+        {{'DDDDDhelloxxx'| rHello }}##person.firstName##<span ng-bind-html="trustAsHtml"></span> <span ng-bind-html="trustAsHtmlFunc()"></span>
         <input type="text" ng-model="person.firstName">&nbsp;<span ng-include="includeFileUr"></span>
         <input type="text" ng-model="person.lastName">&nbsp;<span ng-include="tpl"></span><span ng-include  src="tpl"></span>
         {{json}}{{nowTime | date:'yyyy-MM-dd HH:mm:ss Z'| limitTo:2}}&nbsp;{{nowTime | date:'yyyy-MM-dd HH:mm:ss Z'| limitTo:-4}}
@@ -129,8 +139,11 @@
         $scope.name='ssssss';
     }]);
 
-    var app2 = angular.module("myApp2",['ngSanitize']);
-    app2.controller("controller2",["$scope","$interval",function ($scope,$interval) {
+    var app2 = angular.module("myApp2",['ngSanitize', 'ngStorage']);
+    app2.controller("controller2",["$scope","$interval","$localStorage",function ($scope,$interval,$localStorage) {
+        console.log("---------$localStorage--- ---counter---");
+        console.log($localStorage.counter);
+
         $scope.name2="ooooooooooooo";
         $scope.list = [['a', 'b'], ['c', 'd']];
         $scope.ngBindTest="<h2 style='color: #4cd964'>ngBindHtml测试</h2>";
@@ -194,7 +207,15 @@
         };
     }]);
 
-    app.controller("testWatchController",["$scope","$timeout",function ($scope,$timeout) {
+    app.controller("testWatchController",["$scope","$timeout","$cacheFactory","$localStorage",function ($scope,$timeout,$cacheFactory,$localStorage) {
+
+
+
+        var cache=$cacheFactory.get("cacheFactoryId");
+        console.log("---------$cacheFactory---------");
+       // console.log(cache);
+        console.log("cacheFactory "+cache.get("name"));//$cacheFactory 测试发现不能跨module，同一module 的 controller之间可以共享数据
+        //浏览器关闭，cache清空
         $timeout(function () {
             var div1=document.getElementById("div1");
             angular.bootstrap(div1,["myApp1"]);
