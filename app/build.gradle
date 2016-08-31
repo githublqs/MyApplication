@@ -94,7 +94,6 @@ repositories {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     // https://mvnrepository.com/artifact/com.mcxiaoke.volley/library
-    compile project(':cordovalib')
     compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.android.support:design:24.2.0'
     compile 'com.jakewharton:butterknife:8.2.1'
@@ -102,9 +101,8 @@ dependencies {
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.android.support:support-v4:24.2.0'
     compile 'com.mcxiaoke.volley:library:1.0.19'
-
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
-
+    compile project(':cordovalib')
 }
 

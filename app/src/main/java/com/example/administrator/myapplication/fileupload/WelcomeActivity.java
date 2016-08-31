@@ -37,10 +37,12 @@ public class WelcomeActivity extends BaseAppCompatActivity {
             } else {
                 //跳转到登录页
                 goToPageDelayed(LoginActivity.class,0);
+                finish();
             }
         } else {
-            //跳转到登录页
-            goToPageDelayed(LoginActivity.class,0);
+
+            goToPageDelayed(RegisterActivity.class,0);
+            finish();
         }
     }
 

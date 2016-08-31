@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>标题</title>
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+</head>
+<body>
+<div ng-app="" ng-init="yourName='lqs';v1=2;v2=3;
+points=[1,3,4,6];
+person={firstName:'lqs',sex:'男'};
+">
+    <label>Name:</label>
+    <input type="text" ng-model="yourName" placeholder="Enter a name here">
+    <h1>Hello {{yourName}}!{{v1+v2}}</h1>
+    <h1 ng-bind="yourName"></h1>
+    <p ng-bind="person"></p>
+    <p>{{person.firstName}}</p>
+    <p ng-bind="points"></p>
+    <p>{{points[2]}}</p>
+    <div ng-controller="personController">
+        <input type="text" ng-model="person.firstName" placeholder="姓">
+        <input type="text" ng-model="person.lastName" placeholder="名">
+        <input type="text" ng-model="person.sex" placeholder="性别">
+        <p ng-bind="person.firstName"></p><br/>
+        <p ng-bind="person.lastName"></p><br/>
+        <p ng-bind="person.sex"></p><br/>
+    </div>
+
+</div>
+<script type="text/javascript">
+    function  personController($scope) {
+        $scope.peson={
+            firsName:'lqs',
+            lastName:' GG',
+            set:'女'
+        }
+    }
+</script>
+</body>
+</html>

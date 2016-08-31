@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+    <link href="../lib/ionic/css/ionic.css" rel="stylesheet">
+    <script type="text/javascript" src="../lib/MyUtil.js"></script>
+    <script type="text/javascript" src="../lib/jquery/jquery-3.1.0.js"></script>
+
+    <script src="../lib/ionic/js/ionic.bundle.js"></script>
+    <script src="js/testFilter.js"></script>
+    <script src="js/app.js"></script>
+
+    <script src="js/controllers.js"></script>
+
+    <style>
+        .red{
+            background-color: #ff3b30;
+            color: yellow;
+        }
+        .blue{
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+
+
+
+    <div ng-app="myApp" >
+    <hello>这是测试</hello>
+    <script type="text/ng-template" id="tpl.html">ng-template引入</script>
+    <div ng-controller="personController" >
+        {{'DDDDDhelloxxx'| rHello }}
+        <input type="text" ng-model="person.firstName">&nbsp;<span ng-include="includeFileUr"></span>
+        <input type="text" ng-model="person.lastName">&nbsp;<span ng-include="tpl"></span><span ng-include  src="tpl"></span>
+        {{json}}{{nowTime | date:'yyyy-MM-dd HH:mm:ss Z'| limitTo:2}}&nbsp;{{nowTime | date:'yyyy-MM-dd HH:mm:ss Z'| limitTo:-4}}
+        {{person.firstName + " " + person.lastName}}&nbsp;<br>
+        <span ng-bind-template="{{person.firstName}}  {{person.lastName}}"></span>
+       fullName:{{person.fullName()}}&nbsp;
+    </div>
+    <div ng-controller="nameController" >
+        <ul >
+            <li ng-repeat="name in names |filter:{Country:'Germany'}:myFilter" >
+                {{name.Name|uppercase}}&nbsp;{{name.Country}}
+            </li>
+        </ul>
+    </div>
+    <div ng-controller="costController" >
+        <input type="text" ng-model="price" placeholder=" 价格"><br>
+        <p ng-bind="price"></p>
+        {{price|currency}}<br>
+    </div>
+        {{name}}
+        <button  ng-click="show(); resetDelay(5000);">点我</button>
+    <div ng-controller="testWatchController">
+
+             单价<input type="text" ng-model="iphone.money" ng-model-options="{updateOn: 'blur'}"
+                     />&nbsp;&nbsp;
+
+
+            数量<input type="text" ng-model="iphone.num"/>&nbsp;&nbsp;
+
+
+
+            单价*数量{{sum()|currency:'¥'}}&nbsp;&nbsp;
+
+
+            费用{{iphone.fre}}&nbsp;&nbsp;
+
+
+            支付{{sum()+iphone.fre|currency:'¥'}}&nbsp;&nbsp;
+
+
+    </div>
+
+
+</div>
+    <div id="div1">
+        <div  ng-controller="controller1">
+            {{name}}
+        </div>
+
+        <div ng-controller="controller2">
+            <form ng-submit="submit()">
+            {{name2}}<span ng-bind-html="ngBindTest"></span>
+            <div style="display: inline" id="testJqDiv1"ng-class="{red:temp1,blue:true}"></div>
+            <div style="display: inline" id="testJqDiv2"></div>
+
+                <input type="checkbox" ng-change="onCh()" ng-model="c" >
+                <select>
+                    <option>111</option>
+                    <option ng-selected="c">222</option>
+                </select>
+                <span ng-cloak ng-class="{{sClass}}">{{c?"选中":"未选中"}}</span>
+                <!--<span ng-switch="c">-->
+                <span ng-switch on="c">
+                    <span ng-switch-default>默认的效果</span>
+                    <span ng-switch-when="true">c 为 true</span>
+                    <span ng-switch-when="false">c 为 false</span>
+                </span>
+                <details ng-open="c">
+                    <summary>Copyright 2011.</summary>
+                    <p>All pages and graphics on this web site are the property of W3School.</p>
+                    <div ng-repeat="innerList in list" ng-init="outerIndex = $index">
+                        <div ng-repeat="value in innerList" ng-init="innerIndex = $index">
+                            <span class="example-init">list[ {{outerIndex}} ][ {{innerIndex}} ] = {{value}};</span>
+                        </div>
+                    </div>
+
+                </details>
+                <a ng-href="{{ngHref}}" ng-attr-title="{{title}}" > <img ng-src="{{ngSrc}}" ng-style="{width:50,height:25}" /></a>
+                <input type="button" ng-disabled="temp1" ng-click="onCl()" value="倒计时" ng-hide="temp1"/>
+                <input type="text" ng-model="intervalV" ng-readonly="temp1" ng-copy="copyFun()" ng-paste="pastFun()" ng-cut="cutFun()"/>
+                <input type="checkbox" ng-checked="notTemp1()" ng-disabled="temp1"/>
+                <input type="submit" value="提交"  ng-style="{{ngStyle}}" ><span ng-non-bindable="temp1">{{temp1}}</span>
+            </form>
+            </div>
+        </div>
+    </div>
+<script>
+
+
+    var app1 = angular.module("myApp1", ["myApp2"]);
+    app1.controller("controller1",["$scope",function ($scope) {
+        $scope.name='ssssss';
+    }]);
+
+    var app2 = angular.module("myApp2",['ngSanitize']);
+    app2.controller("controller2",["$scope","$interval",function ($scope,$interval) {
+        $scope.name2="ooooooooooooo";
+        $scope.list = [['a', 'b'], ['c', 'd']];
+        $scope.ngBindTest="<h2 style='color: #4cd964'>ngBindHtml测试</h2>";
+        $scope.sClass="{red:temp1,blue:true}";
+        $scope.ngHref="https://www.baidu.com";
+        $scope.ngSrc="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png";
+       $scope.ngStyle="{ width: 100,\
+               height: 60,\
+               fontSize:60\
+               }";
+
+        $scope.title="百度";
+        var testJqDiv1=document.getElementById("testJqDiv1");
+        //console.log(isDOM(testJqDiv1));
+       //console.log(typeof  testJqDiv1);//object
+
+       angular.element(testJqDiv1).html('<span >通过ionic 内置jqLite查找得到</span>');
+        $('#testJqDiv2').html('<span style="color: #4cd964">通过jquery查找得到</span>');
+        $scope.onCh=function () {
+            $scope.temp1=false;
+           /* if($scope.c){
+               // alert("选中");
+            }else {
+                //alert("未选中");
+            }*/
+
+
+        };
+        $scope.pastFun=function () {
+            alert("pastFun");
+        };
+        $scope.cutFun=function () {
+            alert("cutFun");
+        };
+        $scope.copyFun=function () {
+            alert("copyFun");
+        };
+        $scope.submit=function () {
+            alert("onSubmit");
+        }
+
+        $scope.temp1=false;
+        $scope.intervalV=5;
+        $scope.notTemp1=function () {
+            return !($scope.temp1);
+        };
+        $scope.onCl=function () {
+
+            $scope.temp1=true;
+            if($scope.temp1<=0){
+                $scope.temp1=5;
+            }
+           var time=$interval(function () {
+
+                $scope.intervalV--;
+                if($scope.intervalV<=0){
+                    $interval.cancel(time);
+                    $scope.temp1=false;
+                }
+            },1000);
+        };
+    }]);
+
+    app.controller("testWatchController",["$scope","$timeout",function ($scope,$timeout) {
+        $timeout(function () {
+            var div1=document.getElementById("div1");
+            angular.bootstrap(div1,["myApp1"]);
+        },2000);
+        $scope.iphone={
+            'money':5,
+            'num':0,
+            'fre':100
+        };
+        $scope.sum=function () {
+            return $scope.iphone.money*$scope.iphone.num;
+        };
+        $scope.$watch($scope.sum,function (newVal, oldVal) {
+            $scope.iphone.fre=newVal>=100?0:100;
+        });
+
+
+
+        //alert(angular.isArray([1,2]));
+        //alert(angular.uppercase('hello'));
+        //alert(angular.equals("1","1"));
+        /*$scope.a={'name':'lqs'};
+        $scope.b={'sex':'male'};*/
+        /*var  rel=[];
+        angular.forEach($scope.a,function (val, key) {
+            console.log(key+"="+val);
+            this.push(key);
+            this.push(val);
+            console.log("------------");
+            console.log(this);
+
+
+        },rel);
+        console.log(rel);*/
+        /*var f=angular.bind($scope.b,function (age) {
+            $scope.info= this.sex +" "+age;
+        });
+        f(30);
+        console.log($scope.info);*/
+
+        /*var f=angular.bind($scope.b,function (age) {
+            $scope.info= this.sex +" "+age;
+        },10);
+        f();
+        console.log($scope.info);*/
+
+
+
+
+        /*angular.extend($scope.b,$scope.a);
+        angular.extend($scope.a,$scope.b);
+        console.log($scope.b);
+        console.log({'aa':1});
+        $scope.json=angular.toJson({'aa':1},true);//obj to json
+
+        console.log($scope.json);
+        console.log(angular.fromJson($scope.json));//json to obj*/
+
+
+        
+    }]);
+
+
+</script>
+</body>
+</html>
